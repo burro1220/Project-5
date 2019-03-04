@@ -261,3 +261,21 @@ header h1 {
         color: rgba(25, 25, 25, 1); 
     }
 }
+
+/* ===================================== 
+   My CSS 
+======================================== */
+
+.hidden {
+    display: none;
+}
+.show {
+    display: block;
+}
+body {
+    background-color: teal;
+}
+header h1 {
+    font-size: 2em;
+    color: white;
+}
