@@ -21,9 +21,9 @@ fetch('https://randomuser.me/api/?results=12&&nat=us')
         //Search event listener
         document.querySelector('#search-input').addEventListener('keyup', function(e) {
             let query = (e.target.value).toLowerCase();
-            for (i=0; i < cardsArray.length; i++) {
+            for (i=0; i < cards.length; i++) {
                 //grab name and show employee card if name matches query
-                const card = cardsArray[i];
+                const card = cards[i];
                 const infoContainer = card.lastElementChild;
                 const name = infoContainer.firstElementChild.textContent;
                 if (!name.includes(query)){
@@ -82,37 +82,68 @@ fetch('https://randomuser.me/api/?results=12&&nat=us')
        
         //set HTML of #gallery to stringOfUsers
         document.getElementById('gallery').innerHTML = stringOfUsers;
-        //event listener on each card
+        //now that modals and cards are built grab them for later use
         const cards = document.querySelectorAll('.card');
+        const modals = document.querySelectorAll('.modal-container');
+        //set variable for FXs getNextModal & getPrevModal
+        let currentIndex = 0;
+        //FX gets next modal and accounts for end of list
+        function getNextModal() {
+            //hide current modal
+            modals[currentIndex].classList.toggle('show');
+            modals[currentIndex].classList.toggle('hidden');
+            //handle index out of range
+            if (currentIndex === modals.length - 1) {
+                currentIndex = 0;
+            }
+            else {
+                currentIndex ++;
+            }
+            //show next modal
+            modals[currentIndex].classList.toggle('show');
+            modals[currentIndex].classList.toggle('hidden');
+        }
+        //FX gets prev modal and accounts for end of list
+        function getPrevModal() {
+            //hide current modal
+            modals[currentIndex].classList.toggle('show');
+            modals[currentIndex].classList.toggle('hidden');
+            //handle index out of range
+            if (currentIndex === 0) {
+                currentIndex = modals.length - 1;
+            }
+            else {
+                currentIndex --;
+            }
+            //show previous modal
+            modals[currentIndex].classList.toggle('show');
+            modals[currentIndex].classList.toggle('hidden');
+
+        }
+        //loop through and create event listeners
         cards.forEach(card => {
+            //set variables for code clarity
             const modal = card.nextElementSibling;
+            const buttonContainer = card.nextElementSibling.lastElementChild;
+            const prevButton = buttonContainer.firstElementChild;
+            const nextButton = buttonContainer.lastElementChild;
+            const closeButton = modal.firstElementChild.firstElementChild;
+            //event listener on card
             card.addEventListener('click', function(e) {
-                //grab the card that is clicked
-                const card = e.target.closest(".card");
                 //grab the card's modal and show it
                 modal.classList.replace('hidden', 'show');
-               
             })
-            //grab previous and next buttons
-            const btnContainer = card.nextElementSibling.lastElementChild;
-            const prev = btnContainer.firstElementChild;
-            const next = btnContainer.lastElementChild;
-            //event listener for next to show next card
-            next.addEventListener('click', function(e) {
-                console.log(modal);
+            //event listener on close button to hide modal when clicked
+            closeButton.addEventListener('click', function() {
                 modal.classList.replace('show', 'hidden');
-                card.nextElementSibling.classList.replace('hidden', 'show');
-                console.log(modal.nextElementSibling.nextElementSibling)
             })
-            
+            //event listener on prev button to show prev modal
+            prevButton.addEventListener('click', getPrevModal);
+            //event listener on next button to show next modal
+            nextButton.addEventListener('click', getNextModal);
+           
         })
-        //event listener for each close button
-        const closeButtons = document.querySelectorAll('.modal-close-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                //close modal on 'click'
-                e.target.closest('.modal-container').classList.replace('show', 'hidden');
-            })
-        })
+        
     })
 
 
