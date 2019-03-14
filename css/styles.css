@@ -265,13 +265,6 @@ header h1 {
 /* ===================================== 
    My CSS 
 ======================================== */
-
-.hidden {
-    display: none;
-}
-.show {
-    display: block;
-}
 body {
     background-color: teal;
 }
