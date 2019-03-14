@@ -90,8 +90,8 @@ fetch('https://randomuser.me/api/?results=12&&nat=us')
         //FX gets next modal and accounts for end of list
         function getNextModal() {
             //hide current modal
-            modals[currentIndex].classList.toggle('show');
-            modals[currentIndex].classList.toggle('hidden');
+            modals[currentIndex].classList.remove('show');
+            modals[currentIndex].classList.add('hidden');
             //handle index out of range
             if (currentIndex === modals.length - 1) {
                 currentIndex = 0;
@@ -100,14 +100,14 @@ fetch('https://randomuser.me/api/?results=12&&nat=us')
                 currentIndex ++;
             }
             //show next modal
-            modals[currentIndex].classList.toggle('show');
-            modals[currentIndex].classList.toggle('hidden');
+            modals[currentIndex].classList.remove('hidden');
+            modals[currentIndex].classList.add('show');
         }
         //FX gets prev modal and accounts for end of list
         function getPrevModal() {
             //hide current modal
-            modals[currentIndex].classList.toggle('show');
-            modals[currentIndex].classList.toggle('hidden');
+            modals[currentIndex].classList.remove('show');
+            modals[currentIndex].classList.add('hidden');
             //handle index out of range
             if (currentIndex === 0) {
                 currentIndex = modals.length - 1;
@@ -116,8 +116,8 @@ fetch('https://randomuser.me/api/?results=12&&nat=us')
                 currentIndex --;
             }
             //show previous modal
-            modals[currentIndex].classList.toggle('show');
-            modals[currentIndex].classList.toggle('hidden');
+            modals[currentIndex].classList.remove('hidden');
+            modals[currentIndex].classList.add('show');
 
         }
         //loop through and create event listeners
