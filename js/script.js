@@ -14,7 +14,10 @@ function getEmployees(){
         
         makeEmployeeCards(json);
         makeModal(json);
+        makeSearch(json);
+        
     })
+    
 }
 
 
@@ -107,4 +110,3 @@ document.querySelector('.search-container').innerHTML = searchForm;
         
     
 getEmployees();
-makeSearch();
