@@ -69,9 +69,8 @@ function makeEmployeeCards(json) {
         document.querySelector('#gallery').innerHTML += employeeCard;
     }
 };
-    
+//function to generate modal and append to DOM
 function makeModal(json) { 
-    console.log(json);
     let modalWindow = document.createElement('div');
                 modalWindow.classList.add('modal-container');
                 modalWindow.innerHTML = `
@@ -100,7 +99,7 @@ function makeModal(json) {
                 }); 
                 
 };
-    
+//function to set employee data to modal -- used for next/prev buttons  
 function setModalData (json) {
     document.querySelector('.modal-info-container').innerHTML = `
         <img class="modal-img" src="${json.picture.large}" alt="${json.name.first} profile picture">
@@ -112,10 +111,6 @@ function setModalData (json) {
         <p class="modal-text">${json.location.street}, ${json.location.city}, ${json.location.state} ${json.location.postcode}</p>
         `;
 };  
-  
-    
-
-
  //create search input
 let searchForm = `
 <form action="#" method="get">
@@ -133,12 +128,13 @@ document.querySelector('.search-container').innerHTML = searchForm;
         let query = (e.target.value).toLowerCase();
         for (i=0; i < json.results.length; i++) {
             //grab name and show employee card if name matches query
-            let card = json.results[i];
-            let name = card.name.first + card.name.last;
+            let cards = document.querySelectorAll('.card');
+            let data = json.results[i];
+            let name = data.name.first + data.name.last;
             if(name.includes(query)){
-                console.log(`includes ${card}`);
+                cards[i].style.display = '';
             } else {
-                card.style.display = 'none';
+                cards[i].style.display = 'none';
             }
             
         }
@@ -147,4 +143,5 @@ document.querySelector('.search-container').innerHTML = searchForm;
    
         
 };
+//get employee data
 getEmployees();
